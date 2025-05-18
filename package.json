@@ -1,0 +1,32 @@
+{
+  "name": "vertacnik_webtpi_hospital",
+  "version": "1.0.0",
+  "description": "Pagina web para la gestion del personal y pasientes de un hospital",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlecFrame/Vertacnik_WebTPI_Hospital.git\u001b[D\u001b[C.git"
+  },
+  "keywords": [
+    "html",
+    "hospital",
+    "express"
+  ],
+  "author": "Walter Alexander Vertacnik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlecFrame/Vertacnik_WebTPI_Hospital.git\u001b[D\u001b[C/issues"
+  },
+  "homepage": "https://github.com/AlecFrame/Vertacnik_WebTPI_Hospital.git\u001b[D\u001b[C#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
