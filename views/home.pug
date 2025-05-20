@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  section.hero
+    img(src="/recursos/hospital_foto.jpg", alt="Imagen del hospital")
+    .hero-text
+      h1 Bienvenido al Hospital Central
+      p Tu salud, nuestra prioridad
+
+  section.citas
+    .container
+      h2 ¿Necesitas una cita?
+      p Agenda tu consulta con nuestros especialistas
+      button.btn-cita Pedir cita
+
+  section.horarios
+    .container
+      h2 Horarios de atención
+      ul
+        li Lunes a Viernes: 8:00 AM - 6:00 PM
+        li Sábados: 9:00 AM - 1:00 PM
+        li Urgencias: 24 horas, todos los días
+
+  section.noticias
+    .container
+      h2 Noticias del hospital
+      .noticia
+        h3 Nueva sala de pediatría
+        p Ya está en funcionamiento desde mayo
+      .noticia
+        h3 Nuevo equipo de resonancia
+        p Equipamiento de última generación para mejores diagnósticos
+
+  section.info
+    .container
+      h2 ¿Cómo funciona esta página?
+      .card
+        h3 Registro
+        p Regístrate para acceder a tus citas y más
+      .card
+        h3 Pedir cita
+        p Puedes agendar desde casa fácilmente
+      .card
+        h3 Consultas y resultados
+        p Revisa resultados médicos en línea

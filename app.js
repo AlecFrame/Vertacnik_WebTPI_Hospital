@@ -1,11 +1,31 @@
-import http from 'http';
-import userRoutes from './routes/user';
+const express = require('express');
+const path = require('path');
+const app = express();
+const sequelize = require('./models/db');
 
-const server = http.createServer((req, res) => {
-    userRoutes.handleRoutes(req, res);
-});
+// Importar las rutas
+const indexRoutes = require('./routes/index');
 
-const PORT = 7200;
-server.listen(PORT, () => {
-    console.log('Servidor corriendo en http://localhost:${PORT}');
-});
+// Configuracion del motor de plantillas - PUG
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middleware para obtener datos del formulario
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// Rutas
+app.use('/', indexRoutes);
+
+// Inicio del servidor
+const PORT = process.env.PORT || 7200;
+sequelize.sync({alter: true})
+    .then(() => {
+        console.log('Modelos sincronizados');
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error('Error al sincronizar modelos:', err);
+    });
