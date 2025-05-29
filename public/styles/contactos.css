@@ -1,0 +1,44 @@
+.contacts-container {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 60px auto;
+    padding: 0 10%;
+}
+
+.contacts-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.contact {
+    height: 100%;
+    flex: 1;
+    z-index: 1;
+    min-width: 120px;
+    max-width: 180px;
+    background-color: #ffffff41;
+    color: rgb(126, 31, 55);
+    text-align: center;
+    padding: 20px;
+    transition: background-color 0.3s;
+}
+
+.contact:hover {
+    background-color: #ffffff85;
+}
+
+.contact h1 {
+    margin-top: 40px;
+    font-size: 45px;
+}
+
+.contact p {
+    font-size: 18px;
+    text-decoration: underline;
+}

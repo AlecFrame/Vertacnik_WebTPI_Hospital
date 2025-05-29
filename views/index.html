@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/styles/style.css">
+    <link rel="icon" href="../public/icon/hospitalAlexandriaI_logo.png" type="image/png">
+    <script defer src="../public/js/carrusel.js"></script>
+    <title>Hospital Alexandria</title>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+        <img src="../public/icon/hospitalAlexandriaIcono2.png" alt="Logo" />
+        </div>
+        <section style="display: flex; flex-direction: row; gap: 40px; align-items: center;">
+            <p style="font-size: 22px; color: rgb(255, 0, 149); text-shadow: 1px 1px 1px black;">📞 1475</p>
+            <button class="login-button">Iniciar Sesión</button>
+        </section>
+    </header>
+
+
+    <div class="main-container">
+        <div class="carousel-container">
+            <div class="carousel">
+                <img src="../public/screenshots/slider-0.jpg" alt="Imagen 0" class="active" />
+                <img src="../public/screenshots/slider-1.png" alt="Imagen 1" />
+                <img src="../public/screenshots/slider-2.jpg" alt="Imagen 2" />
+            </div>
+            <div class="carousel-controls">
+                <button id="prev">⟨</button>
+                <button id="next">⟩</button>
+            </div>
+            <button class="cita-button">PEDIR CITA</button>
+        </div>
+
+
+        <div class="info-cards">
+            <div class="card" id="card1">
+                <img src="../public/icon/estetoscopio.png" alt="Icono 1" class="card-icon" />
+                <h3>Atención 24/7</h3><br>
+                <p>Estamos disponibles en todo momento para atender emergencias médicas.</p>
+            </div>
+            <div class="card" id="card2">
+                <img src="../public/icon/doctor.png" alt="Icono 2" class="card-icon" />
+                <h3>Especialistas</h3><br>
+                <p>Contamos con un equipo de médicos altamente calificados en distintas áreas.</p>
+            </div>
+            <div class="card" id="card3">
+                <img src="../public/icon/cruz-medica.png" alt="Icono 3" class="card-icon" />
+                <h3>Citas en línea</h3><br>
+                <p>Solicita tu cita médica desde la comodidad de tu hogar.</p>
+            </div>
+        </div>
+
+        <div class="contacts-container">
+            <img src="../public/screenshots/fondo-numeros-telefonicos.png" alt="fondo-telefonico">
+            <div class="contact">
+                <h1>+81</h1>
+                <p>Recepción</p>
+            </div>
+            <div class="contact">
+                <h1>+82</h1>
+                <p>Citas médicas</p>
+            </div>
+            <div class="contact">
+                <h1>+83</h1>
+                <p>Farmacia</p>
+            </div>
+        </div>
+    
+        <div class="extras-container">
+            <div class="extra-card">
+                <div class="extra-card-img-content">
+                    <img src="../public/screenshots/fondo-noticias.jpg" alt="imagen Noticias">
+                </div>
+                <h3>Noticias y novedades</h3>
+                <p>Conoce las últimas noticias, eventos y avances del hospital.</p>
+                <a href="noticias.html" class="extra-button">Ver noticias</a>
+            </div>
+            <div class="extra-card">
+                <div class="extra-card-img-content">
+                    <img src="../public/screenshots/fondo-equipo-medico.jpg" alt="imagen representativa">
+                </div>
+                <h3>Recursos del hospital</h3>
+                <p>Consulta nuestro equipo médico, camas disponibles y stock farmacéutico.</p>
+                <a href="equipo.html" class="extra-button">Ver información</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <h3>Más Información</h3>
+        <hr>
+        <div class="informative-container">
+            <div class="informative-column">
+                <h4>Dirección</h4>
+                <p>Av. Lafinur Sur, San Luis capital, Hospital Central Alexandria</p>
+            </div>
+            <div class="informative-column">
+                <h4>Horarios</h4>
+                <p>consulta: 9:30 - 20:00</p>
+                <p>urgencias: 8:00 - 21:00</p>
+                <p>visitas: 13:00 - 17:00</p>
+            </div>
+            <div class="informative-column">
+                <h4>Enlaces útiles</h4>
+                <p>Términos y condiciones / privacidad</p>
+                <p>Trabaja con nosotros</p>
+                <p>Preguntas frecuentes</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

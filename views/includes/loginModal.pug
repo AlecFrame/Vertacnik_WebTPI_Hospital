@@ -1,0 +1,20 @@
+script(defer, src="/js/loginModal.js")
+link(rel="stylesheet", href="/styles/loginModal.css")
+
+#overlay
+  .modal
+    h2 Iniciar Sesión
+    form(action="/login", method="post")
+      label(for="dni") DNI
+      input#dni(type="text", name="dni", required)
+
+      label(for="email") Gmail
+      input#email(type="email", name="email", required)
+
+      label(for="password") Contraseña
+      input#password(type="password", name="password", required)
+
+      button(type="submit") Ingresar
+
+    a.forgot(href="/recuperar") ¿Olvidaste tu contraseña?
+    button.close-button ✕
