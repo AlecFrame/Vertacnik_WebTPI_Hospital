@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const db = require('./models');
+const session = require('express-session');
 
 // Importar las rutas
 const indexRoutes = require('./routes/index');
@@ -13,6 +14,13 @@ const { title } = require('process');
 // Configuracion del motor de plantillas - PUG
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
+// Configuración de la sesión
+app.use(session({
+  secret: 'Algo', // usa una clave real en producción
+  resave: false,
+  saveUninitialized: false
+}));
 
 // Middleware para poder cargar las imagenes u otros localmente y obtener datos de formulario
 app.use(express.static('public'));
