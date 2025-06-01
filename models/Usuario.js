@@ -4,9 +4,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Usuario extends Model {
         static associate(models) {
-            console.log("models: "+models);
-            console.log("models.Rol: "+models.Rol);
-            console.log("models.RolUsuario: "+models.RolUsuario);
             this.belongsToMany(models.Rol, {
                 through: models.RolUsuario,
                 foreignKey: 'usuario_id',
@@ -24,15 +21,15 @@ module.exports = (sequelize, DataTypes) => {
                 unique: true
             },
             dni: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING(15),
                 allowNull: false
             },
             nombre: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING(50),
                 allowNull: false
             },
             apellido: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING(50),
                 allowNull: false
             },
             fecha_nacimiento: {
@@ -40,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             email: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING(100),
                 allowNull: false
             },
             contraseña: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING(60),
                 allowNull: false
             },
             fecha_registro: {

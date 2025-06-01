@@ -28,12 +28,8 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    console.log("model index: "+model);
     db[model.name] = model;
   });
-
-console.log("Modelos cargados:");
-console.log(Object.keys(db)); // Deberías ver: ['Usuario', 'Rol', 'RolUsuario']
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

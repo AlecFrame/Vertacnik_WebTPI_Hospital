@@ -6,6 +6,8 @@ const db = require('./models');
 // Importar las rutas
 const indexRoutes = require('./routes/index');
 const profileRoutes = require('./routes/profile');
+const loginRoutes = require('./routes/login');
+// const { Usuario, Rol, RolUsuario } = require('./models'); // Descomentar si se necesita para la autenticación
 const { title } = require('process');
 
 // Configuracion del motor de plantillas - PUG
@@ -26,6 +28,7 @@ app.use((req, res, next) => {
 // Rutas
 app.use('/', indexRoutes);
 app.use('/profile', profileRoutes);
+app.post('/login', loginRoutes); // Middleware para manejar la autenticación
 
 // Error 404
 app.use((req, res) => {

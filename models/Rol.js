@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
                 unique: true
             },
             tipo: {
-                type: DataTypes.TEXT
+                type: DataTypes.STRING(50)
             }
         }, {
             sequelize,
