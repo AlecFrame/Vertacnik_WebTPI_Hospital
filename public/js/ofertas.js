@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${new Date(oferta.fecha_cierre).toLocaleDateString()}</td>
             <td>${oferta.activo ? 'Activa' : 'Inactiva'}</td>
             <td>
-                <button class="btn-deshabilitar" data-id="${oferta.id}">Dar de baja</button>
+                ${oferta.activo ?
+                `<button class="btn-deshabilitar" data-id="${oferta.id}">Dar de baja</button>` :
+                `<span class="text-muted">No editable</span>`}
             </td>
             `;
             tbody.appendChild(fila);

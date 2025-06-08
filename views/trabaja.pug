@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  include includes/header.pug
+  link(rel="stylesheet", href="/styles/trabaja.css")
+  script(defer, src="/js/trabaja.js")
+
+  .main-container(style="padding: 90px 20px;")
+    h1 Trabaja con Nosotros
+    p(style="margin: 1rem 0;") Consulta las ofertas laborales disponibles y postúlate cargando tus datos y CV en PDF.
+    hr
+
+    table#tablaOfertas
+      thead
+        tr
+          th Rol
+          th Descripción
+          th Fecha de Cierre
+          th Postularse
+      tbody
+        - for (let i = 0; i < ofertas.length; i++)
+          - const oferta = ofertas[i]
+          if oferta.activo
+            tr
+              td= oferta.rol.tipo
+              td= oferta.descripcion
+              td= oferta.fecha_cierre.toLocaleDateString()
+              td
+                button.btn-postular(data-id=oferta.id) Postularse
+
+    if success
+      .alert-success La postulación fue enviada con éxito.
+    
+    form#formPostulacion(method="POST", action="/postular", class="hidden")
+      input(type="hidden", name="oferta_id")
+      h2 Postularse
+
+      label DNI:
+      input(type="text", name="dni", required)
+
+      label Nombre:
+      input(type="text", name="nombre", required)
+
+      label Apellido:
+      input(type="text", name="apellido", required)
+
+      label Email:
+      input(type="email", name="email", required)
+
+      label Teléfono:
+      input(type="text", name="telefono")
+
+      label Fecha de nacimiento:
+      input(type="date", name="fecha_nacimiento", required)
+
+      label Currículum (enlace al PDF online):
+      input(type="url", name="url_cv", placeholder="https://drive.google.com/...", required)
+
+      button(type="submit") Enviar postulación
+  include includes/footer.pug
+  include includes/loginModal.pug

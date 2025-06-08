@@ -30,9 +30,12 @@ block content
                     h2 Usuarios
                     p Aquí podrás gestionar los usuarios del sistema.
 
+                .section-panel(data-section="estructura hospitalaria")
+                    h2 Estructura Hospitalaria
+                    p Aquí podrás gestionar la estructura hospitalaria.
+
                 .section-panel(data-section="ofertas")
                     include includes/ofertas.pug
 
                 .section-panel(data-section="postulaciones")
-                    h2 Postulaciones
-                    p Aquí podrás ver y gestionar las postulaciones de los usuarios.
+                    include includes/postulaciones.pug

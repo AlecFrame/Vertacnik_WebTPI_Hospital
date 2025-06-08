@@ -1,26 +1,29 @@
+link(rel="stylesheet", href="/styles/postulaciones.css")
+script(defer, src="/js/postulaciones.js")
 
-
-h2 Gestión de Postulaciones a Ofertas Laborales
-p Aquí podrás ver y gestionar las postulaciones a las ofertas laborales de tu institución.
+h2 Gestión de Postulaciones
+p Aquí podrás revisar, aceptar o rechazar postulaciones a las ofertas laborales.
 hr
-section(style="display: flex; flex-direction: row; gap: 20px; margin-bottom: 10px; margin-top: 10px;")
-    //- Filtros simples (opcional)
-    .filtros
-        label Estado:
-        select#filtroEstado
-            option(value="todas") Todas
-            option(value="pendientes") Pendientes
-            option(value="aceptadas") Aceptadas
-            option(value="rechazadas") Rechazadas
-//- Listar tabla
+section(style="display: flex; flex-direction: row; gap: 20px; margin: 10px 0;")
+  .filtros
+    label Estado:
+    select#filtroPostulacion
+      option(value="") Todas
+      option(value="pendiente") Pendiente
+      option(value="aceptada") Aceptadas
+      option(value="rechazada") Rechazadas
+
 table#tablaPostulaciones
-    thead
-        tr
-            th ID
-            th Oferta
-            th Usuario
-            th Fecha Postulación
-            th Estado
-            th Acciones
-    tbody
-        //- Aquí se llenarán las filas con JavaScript
+  thead
+    tr
+      th ID
+      th Nombre
+      th Email
+      th Rol
+      th Oferta
+      th Fecha
+      th Estado
+      th CV
+      th Acciones
+  tbody
+    //- Llenado dinámico

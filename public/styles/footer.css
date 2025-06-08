@@ -30,3 +30,12 @@
 .informative-column h4 {
     margin-bottom: 14px;
 }
+
+.informative-column a {
+    color: white;
+    text-decoration: none;
+}
+
+.informative-column a:hover {
+    text-decoration: underline;
+}

@@ -9,6 +9,8 @@ const indexRoutes = require('./routes/index');
 const profileRoutes = require('./routes/profile');
 const loginRoutes = require('./routes/login');
 const adminOfertasRoutes = require('./routes/adminOfertas');
+const adminPostulaciones = require('./routes/adminPostulaciones');
+const publicPostulaciones = require('./routes/publicPostulaciones');
 const { Usuario, Rol, RolUsuario } = require('./models');
 
 // Configuracion del motor de plantillas - PUG
@@ -66,6 +68,8 @@ app.use('/', indexRoutes);
 app.use('/profile', profileRoutes);
 app.post('/login', loginRoutes); // Middleware para manejar la autenticación
 app.use('/admin', adminOfertasRoutes);
+app.use('/admin', adminPostulaciones);
+app.use('/', publicPostulaciones);
 
 // Error 404
 app.use((req, res) => {

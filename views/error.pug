@@ -1,0 +1,14 @@
+extends layout
+block content
+  include includes/header.pug
+  link(rel="stylesheet", href="/styles/error.css")
+
+  .main-container(style="padding: 90px 20px;")
+    h1 Error
+    p(style="margin: 1rem 0;") Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.
+    hr
+
+    a(href="/") Volver al inicio
+
+  include includes/footer.pug
+  include includes/loginModal.pug

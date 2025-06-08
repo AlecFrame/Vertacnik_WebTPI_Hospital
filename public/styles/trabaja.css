@@ -1,0 +1,81 @@
+#tablaOfertas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#tablaOfertas th, #tablaOfertas td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#tablaOfertas th {
+  background-color: #f0f0f0;
+}
+
+.btn-postular {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.btn-postular:hover {
+  background-color: #0056b3;
+}
+
+form#formPostulacion {
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+form.hidden {
+  display: none;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+}
+
+form input {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  margin-top: 1.5rem;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  margin: 1rem 0;
+}

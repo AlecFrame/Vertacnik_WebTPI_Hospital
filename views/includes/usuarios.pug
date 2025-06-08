@@ -1,0 +1,27 @@
+
+
+h2 Usuarios
+p Aquí podrás gestionar los usuarios del sistema.
+hr
+section(style="display: flex; flex-direction: row; gap: 20px; margin: 10px 0;")
+    //- Filtros simples (opcional)
+    .filtros
+        label Rol:
+        select#filtroRol
+            option(value="todos") Todos
+            option(value="medico") Médico
+            option(value="enfermero") Enfermero
+            option(value="recepcionista") Recepcionista
+
+table#tablaUsuarios
+    thead
+        tr
+            th ID
+            th Nombre
+            th Apellido
+            th Rol
+            th Email
+            th Fecha de Registro
+            th Acciones
+    tbody
+        //- Aquí se llenarán las filas con JavaScript
