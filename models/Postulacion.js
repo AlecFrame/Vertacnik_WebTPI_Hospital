@@ -1,18 +1,17 @@
-"use strict";
+"use restrict";
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Usuario extends Model {
+    class Postulacion extends Model {
         static associate(models) {
-            this.belongsToMany(models.Rol, {
-                through: models.RolUsuario,
-                foreignKey: 'usuario_id',
-                otherKey: 'rol_id',
+            this.belongsTo(models.Oferta, {
+                foreignKey: 'oferta_id',
+                as: 'oferta'
             });
         }
     };
 
-    Usuario.init(
+    Postulacion.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -32,10 +31,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(50),
                 allowNull: false
             },
-            fecha_nacimiento: {
-                type: DataTypes.DATE,
-                allowNull: false
-            },
             email: {
                 type: DataTypes.STRING(100),
                 allowNull: false
@@ -44,24 +39,33 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(20),
                 allowNull: true
             },
-            contraseña: {
-                type: DataTypes.STRING(60),
+            fecha_nacimiento: {
+                type: DataTypes.DATE,
                 allowNull: false
             },
-            fecha_registro: {
+            url_cv: {
+                type: DataTypes.STRING(255),
+                allowNull: false
+            },
+            oferta_id: {
+                type: DataTypes.INTEGER,
+                allowNull: false
+            },
+            fecha_postulacion: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW
             },
-            activo: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: true
+            estado: {
+                type: DataTypes.ENUM('pendiente', 'aceptada', 'rechazada'),
+                defaultValue: 'pendiente'
             }
         }, {
             sequelize,
-            modelName: 'Usuario',
-            tableName: 'Usuarios',
+            modelName: 'Postulacion',
+            tableName: 'Postulaciones',
             timestamps: false
         }
     );
-    return Usuario;
-};
+
+    return Postulacion;
+}

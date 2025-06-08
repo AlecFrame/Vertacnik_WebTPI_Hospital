@@ -11,8 +11,6 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        console.log('ID de usuario en sesión:', req.session.userId);
-
         const usuario = await Usuario.findByPk(req.session.userId, {
             include: {
                 model: Rol,
@@ -26,10 +24,6 @@ router.get('/', async (req, res) => {
                 message: 'No se pudo encontrar al usuario con ese ID'
             });
         }
-
-        console.log('Usuario autenticado:', usuario.nombre);
-        console.log('Usuario autenticado, id:', usuario.id);
-        console.log('Usuario autenticado, rol:', usuario.Rols.map(rol => rol.tipo));
 
         res.render('profile', {
             title: 'Perfil de Usuario',

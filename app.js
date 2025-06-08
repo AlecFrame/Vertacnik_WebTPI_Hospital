@@ -8,8 +8,8 @@ const session = require('express-session');
 const indexRoutes = require('./routes/index');
 const profileRoutes = require('./routes/profile');
 const loginRoutes = require('./routes/login');
-// const { Usuario, Rol, RolUsuario } = require('./models'); // Descomentar si se necesita para la autenticación
-const { title } = require('process');
+const adminOfertasRoutes = require('./routes/adminOfertas');
+const { Usuario, Rol, RolUsuario } = require('./models');
 
 // Configuracion del motor de plantillas - PUG
 app.set('view engine', 'pug');
@@ -33,10 +33,39 @@ app.use((req, res, next) => {
     next();
 });
 
+// Middleware para manejar la autenticación
+app.use(async (req, res, next) => {
+    res.locals.isAuthenticated = false;
+    res.locals.usuario = null;
+
+    if (req.session.userId) {
+        try {
+            const usuario = await Usuario.findByPk(req.session.userId, {
+                include: {
+                    model: Rol,
+                    through: { attributes: [] }
+                }
+            });
+
+            if (usuario) {
+                res.locals.isAuthenticated = true;
+                res.locals.usuario = usuario;
+                res.locals.roles = usuario.Rols.map(r => r.tipo);
+            }
+        } catch (error) {
+            console.error('Error al cargar usuario en middleware global:', error);
+        }
+    }
+
+    next();
+});
+
+
 // Rutas
 app.use('/', indexRoutes);
 app.use('/profile', profileRoutes);
 app.post('/login', loginRoutes); // Middleware para manejar la autenticación
+app.use('/admin', adminOfertasRoutes);
 
 // Error 404
 app.use((req, res) => {

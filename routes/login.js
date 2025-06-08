@@ -22,10 +22,6 @@ router.post('/login', async (req, res) => {
             });
         }
 
-        // Si se encuentra el usuario, redirige a su perfil
-        console.log('Usuario autenticado:', usuario.nombre);
-        console.log('Usuario autenticado, id:', usuario.id);
-        console.log('Usuario autenticado, rol:', usuario.Rols.map(rol => rol.tipo));
         // Aquí podrías guardar el usuario en la sesión
         req.session.userId = usuario.id; // Guarda el ID del usuario en la sesión
         req.session.userRoles = usuario.Rols.map(rol => rol.tipo); // Guarda los roles del usuario en la sesión

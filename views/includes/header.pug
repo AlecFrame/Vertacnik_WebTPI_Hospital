@@ -1,8 +1,20 @@
 link(rel="stylesheet", href="/styles/header.css")
+script(defer, src="/js/header.js")
 
 header.header
   .logo
     img(src="/icon/hospitalAlexandriaIcono2.png", alt="Logo")
-  section(style="display: flex; flex-direction: row; gap: 40px; align-items: center;")
-    p(style="font-size: 25px; color: rgb(255, 0, 149); text-shadow: 1px 1px 1px black;") 📞 1475
-    button.login-button Iniciar Sesión
+  if (!isAuthenticated)
+    section.right-section
+      p(style="font-size: 25px; color: rgb(255, 0, 149); text-shadow: 1px 1px 1px black;") 📞 1475
+      button.login-button Iniciar Sesión
+  else
+    section.right.section 
+      .dropdown-container
+        button.user-button(onclick="toggleMenu()")= usuario.nombre+" "+usuario.apellido+" ▼"
+        .dropdown-menu#user-menu
+          ul
+            li
+              a(href="/profile") Perfil
+            li
+              a(href="/logout") Cerrar sesión

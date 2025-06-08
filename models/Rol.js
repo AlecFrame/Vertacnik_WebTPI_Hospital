@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'rol_id',
                 otherKey: 'usuario_id',
             });
+            this.hasMany(models.Oferta, {
+                foreignKey: 'rol_id',
+                as: 'ofertas'
+            });
         }
     };
 
@@ -26,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
         }, {
             sequelize,
             modelName: 'Rol',
-            tableName: 'Roles'
+            tableName: 'Roles',
+            timestamps: false
         }
     );
     return Rol;
