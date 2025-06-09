@@ -14,6 +14,8 @@ block content
                     button.menu-item Mi perfil
                     if (roles.includes('Administrador'))
                         button.menu-item Usuarios
+                        button.menu-item Pacientes
+                        button.menu-item Estructura Hospitalaria
                         button.menu-item Ofertas
                         button.menu-item Postulaciones
         main.content-area
@@ -27,12 +29,13 @@ block content
 
             if(roles.includes('Administrador'))
                 .section-panel(data-section="usuarios")
-                    h2 Usuarios
-                    p Aquí podrás gestionar los usuarios del sistema.
+                    include includes/usuarios.pug
 
-                .section-panel(data-section="estructura hospitalaria")
-                    h2 Estructura Hospitalaria
-                    p Aquí podrás gestionar la estructura hospitalaria.
+                .section-panel(data-section="pacientes")
+                    include includes/usuarios.pug
+
+                .section-panel(data-section="hospital")
+                    include includes/hospital.pug
 
                 .section-panel(data-section="ofertas")
                     include includes/ofertas.pug

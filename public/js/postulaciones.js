@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', async () => {
           const id = btn.dataset.id;
           await fetch(`/admin/postulaciones/${id}/aceptar`, { method: 'PUT' });
-          cargarPostulaciones();
+          Toast.show('Postulación aceptada y usuario creado', 'success');
+          setTimeout(() => location.reload(), 1000);
         });
       });
 

@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'Usuarios': 'usuarios',
         'Pacientes': 'pacientes',
         'Ofertas': 'ofertas',
-        'Postulaciones': 'postulaciones'
+        'Postulaciones': 'postulaciones',
+        'Estructura Hospitalaria': 'hospital'
       };
 
       const selectedSection = sectionMap[btn.innerText.trim()];

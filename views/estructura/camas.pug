@@ -1,0 +1,20 @@
+h3 Lista de Camas
+button#addCama Agregar Cama
+
+table#tabla
+  thead
+    tr
+      th ID
+      th Numero
+      th Disponible
+      th Higienizada
+      th HabitacionId
+  tbody
+    - for (let i = 0; i < items.length; i++)
+        - const a = items[i]
+        tr
+            td= a.id
+            td= a.numero
+            td= a.disponible
+            td= a.higienizada
+            td= a.habitacionId

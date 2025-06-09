@@ -1,0 +1,16 @@
+h3 Lista de Unidades
+button#addUnidad Agregar Unidad
+
+table#tabla
+  thead
+    tr
+      th ID
+      th Nombre
+      th Descripción
+  tbody
+    - for (let i = 0; i < items.length; i++)
+        - const u = items[i]
+        tr
+            td= u.id
+            td= u.nombre
+            td= u.descripcion || '—'

@@ -1,0 +1,20 @@
+h3 Lista de Habitaciones 
+button#addHabitacion Agregar Habitacion
+
+table#tabla
+  thead
+    tr
+      th ID
+      th Numero
+      th Tipo
+      th Capacidad
+      th AlaId
+  tbody
+    - for (let i = 0; i < items.length; i++)
+        - const a = items[i]
+        tr
+            td= a.id
+            td= a.numero
+            td= a.tipo
+            td= a.capacidad
+            td= a.alaId

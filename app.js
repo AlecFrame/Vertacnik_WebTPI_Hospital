@@ -10,7 +10,9 @@ const profileRoutes = require('./routes/profile');
 const loginRoutes = require('./routes/login');
 const adminOfertasRoutes = require('./routes/adminOfertas');
 const adminPostulaciones = require('./routes/adminPostulaciones');
+const adminUsuarios = require('./routes/adminUsuarios');
 const publicPostulaciones = require('./routes/publicPostulaciones');
+const adminEstructura = require('./routes/adminEstructura');
 const { Usuario, Rol, RolUsuario } = require('./models');
 
 // Configuracion del motor de plantillas - PUG
@@ -63,12 +65,34 @@ app.use(async (req, res, next) => {
 });
 
 
+// Middleware para manejar variables globales
+app.use(async (req, res, next) => {
+    res.locals.hospital = null;
+
+    try {
+        const hospital = await db.Hospital.findOne({
+            where: { id: 1 } // Solo hay un hospital en la base de datos
+        });
+
+        if (hospital) {
+            res.locals.hospital = hospital;
+        }
+    } catch (error) {
+        console.error('Error al cargar hospital en middleware global:', error);
+    }
+
+    next();
+});
+
+
 // Rutas
 app.use('/', indexRoutes);
 app.use('/profile', profileRoutes);
 app.post('/login', loginRoutes); // Middleware para manejar la autenticación
 app.use('/admin', adminOfertasRoutes);
 app.use('/admin', adminPostulaciones);
+app.use('/admin', adminUsuarios);
+app.use('/admin', adminEstructura);
 app.use('/', publicPostulaciones);
 
 // Error 404

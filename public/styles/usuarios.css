@@ -1,0 +1,32 @@
+/* Botones */
+button.btn-estado,
+button.btn-reset {
+  padding: 6px 10px;
+  margin: 2px 0;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+button.btn-estado {
+  background-color: #17a2b8;
+  color: white;
+}
+button.btn-estado:hover {
+  background-color: #138496;
+}
+button.btn-reset {
+  background-color: #ffc107;
+  color: black;
+}
+button.btn-reset:hover {
+  background-color: #e0a800;
+}
+
+/* Select rol */
+.select-rol {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}

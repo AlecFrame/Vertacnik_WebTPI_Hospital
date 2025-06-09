@@ -1,0 +1,18 @@
+link(rel="stylesheet", href="/styles/estructura.css")
+script(defer, src="/js/estructura.js")
+
+h2 Gestión de la Estructura Hospitalaria
+hr
+.section-hospital
+  img.hospital-img(src="/screenshots/slider-1.png", alt="Hospital")
+  .hospital-info
+    h2= hospital.nombre
+    p Dirección: #{hospital.direccion}
+    p Teléfono: #{hospital.telefono}
+hr
+.section-tabs
+  each item in ['Unidades', 'Alas', 'Habitaciones', 'Camas']
+    .tab(data-section=item.toLowerCase())= item
+
+.section-panel2#estructuraPanel
+  p Selecciona una sección para gestionar la estructura del hospital.

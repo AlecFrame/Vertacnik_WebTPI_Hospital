@@ -1,5 +1,9 @@
 .section-panel {
   display: none;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
 }
 
 .section-panel.active {
@@ -26,4 +30,42 @@
   padding-top: 80px;
   width: 100%;
   overflow: hidden;
+}
+
+/* Tabla */
+table#tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+#tabla th, #tablaOfertas td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+#tabla th {
+    background-color: #f0f0f0;
+}
+#tabla tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+#tabla tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Filtros */
+.filtros {
+  margin: 5px 0;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.filtros label {
+  font-weight: bold;
+}
+.filtros select {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
