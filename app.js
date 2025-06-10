@@ -8,6 +8,7 @@ const session = require('express-session');
 const indexRoutes = require('./routes/index');
 const profileRoutes = require('./routes/profile');
 const loginRoutes = require('./routes/login');
+const logoutRoutes = require('./routes/logout');
 const adminOfertasRoutes = require('./routes/adminOfertas');
 const adminPostulaciones = require('./routes/adminPostulaciones');
 const adminUsuarios = require('./routes/adminUsuarios');
@@ -89,6 +90,7 @@ app.use(async (req, res, next) => {
 app.use('/', indexRoutes);
 app.use('/profile', profileRoutes);
 app.post('/login', loginRoutes); // Middleware para manejar la autenticación
+app.get('/logout', logoutRoutes); // Middleware para manejar el cierre de sesión
 app.use('/admin', adminOfertasRoutes);
 app.use('/admin', adminPostulaciones);
 app.use('/admin', adminUsuarios);

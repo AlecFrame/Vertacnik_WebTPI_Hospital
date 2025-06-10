@@ -1,10 +1,13 @@
 script(defer, src="/js/loginModal.js")
 link(rel="stylesheet", href="/styles/loginModal.css")
+script(defer src="/js/toast.js")
+script(defer src="/js/login.js")
+link(rel="stylesheet", href="/styles/toast.css")
 
 #overlay
   .modal
     h2 Iniciar Sesión
-    form(action="/login", method="post")
+    form#loginForm
       label(for="dni") DNI
       input#dni(type="text", name="dni", required)
 

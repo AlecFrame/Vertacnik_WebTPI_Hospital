@@ -3,37 +3,32 @@ const router = express.Router();
 const { Usuario, Rol, RolUsuario } = require('../models');
 
 router.post('/login', async (req, res) => {
-    const { dni, email, password } = req.body;
+  const { dni, email, password } = req.body;
 
-    try {
-        // Verifica si el usuario existe con esos datos
-        const usuario = await Usuario.findOne({
-            where: { dni, email, contraseña: password },
-            include: {
-                model: Rol,
-                through: { attributes: [] }
-            }
-        });
+  try {
+    const usuario = await Usuario.findOne({
+      where: { dni, email },
+      include: {
+        model: Rol,
+        through: { attributes: [] }
+      }
+    });
 
-        if (!usuario) {
-            return res.status(401).render('error', {
-                title: 'Inicio de sesión fallido',
-                message: 'Credenciales incorrectas'
-            });
-        }
+    const bcrypt = require('bcrypt');
 
-        // Aquí podrías guardar el usuario en la sesión
-        req.session.userId = usuario.id; // Guarda el ID del usuario en la sesión
-        req.session.userRoles = usuario.Rols.map(rol => rol.tipo); // Guarda los roles del usuario en la sesión
-
-        res.redirect(`/profile`);
-    } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        res.status(500).render('error', {
-            title: 'Error del servidor',
-            message: 'Ocurrió un error al intentar iniciar sesión'
-        });
+    if (!usuario || !(await bcrypt.compare(password, usuario.contraseña))) {
+        return res.status(401).json({ error: 'Credenciales incorrectas' });
     }
+
+
+    req.session.userId = usuario.id;
+    req.session.userRoles = usuario.Rols.map(rol => rol.tipo);
+
+    res.status(200).json({ redirect: '/profile' });
+  } catch (error) {
+    console.error('Error al iniciar sesión:', error);
+    res.status(500).json({ error: 'Error del servidor al iniciar sesión' });
+  }
 });
 
 module.exports = router;
