@@ -11,4 +11,7 @@ router.post('/crear', pacienteController.crearPacienteConUsuario);
 // Crear nuevo paciente y usuario
 router.post('/guardar', pacienteController.guardar);
 
+// Obtener dni temporal en caso de paciente no identificado
+router.get('/generar-dni-temporal', pacienteController.generarDniTemporal);
+
 module.exports = router;

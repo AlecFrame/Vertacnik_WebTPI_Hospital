@@ -138,3 +138,25 @@ exports.guardar = async (req, res) => {
         res.status(500).json({ error: 'Error al guardar el paciente' });
     }
 };
+
+exports.generarDniTemporal = async (req, res) => {
+    try {
+        // Busca el último usuario con DNI tipo NN###
+        const ultimo = await Usuario.findOne({
+            where: {
+                dni: { [require('sequelize').Op.like]: 'NN%' }
+            },
+            order: [['dni', 'DESC']]
+        });
+
+        let nuevoNumero = 1;
+        if (ultimo && /^NN\d+$/.test(ultimo.dni)) {
+            nuevoNumero = parseInt(ultimo.dni.slice(2), 10) + 1;
+        }
+        const dniTemporal = `NN${String(nuevoNumero).padStart(3, '0')}`;
+        res.json({ dniTemporal });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error generando DNI temporal' });
+    }
+};

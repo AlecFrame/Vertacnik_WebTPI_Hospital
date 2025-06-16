@@ -79,3 +79,17 @@ textarea {
     margin: 1.5rem 0;
     color: #2c3e50;
 }
+
+#labelnoIdentificable {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+#noIdentificable {
+  margin: 0 0.5rem;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}

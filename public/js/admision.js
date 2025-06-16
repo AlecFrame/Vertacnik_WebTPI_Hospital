@@ -6,7 +6,6 @@ function cambiarFase(faseActual, faseNueva) {
   faseNueva.classList.add('visible');
 }
 
-// En algún archivo JS cargado en esa vista
 const tipoIngreso = document.getElementById('tipoIngreso');
 const campoDerivacion = document.getElementById('campoDerivacion');
 const dniPaciente = document.getElementById('dniPaciente');
@@ -138,10 +137,37 @@ const obraSocial = document.getElementById('obra_social');
 const alergias = document.getElementById('alergias');
 
 siguienteFase1.addEventListener('click', async () => {
-  console.log('Siguiente fase 1');
-  const dniPaciente = document.getElementById('dniPaciente');
+  if (checkNoIdentificable.checked) {
+    // Paciente no identificable: rellena y deshabilita campos
+    nombrePaciente.value = 'No identificado';
+    apellidoPaciente.value = 'No identificado';
+    fechaNacimiento.value = '';
+    genero.value = '';
+    telefono.value = '';
+    direccion.value = '';
+    contactos_emergencia.value = '';
+    grupo_sanguineo.value = '';
+    obraSocial.value = '';
+    alergias.value = '';
+
+    // Deshabilita los campos excepto motivo
+    [
+      nombrePaciente, apellidoPaciente, fechaNacimiento, genero,
+      telefono, direccion, contactos_emergencia, grupo_sanguineo,
+      obraSocial, alergias
+    ].forEach(input => input.disabled = true);
+
+    cambiarFase(fase1, fase2);
+    return;
+  }else {
+    [
+      nombrePaciente, apellidoPaciente, fechaNacimiento, genero,
+      telefono, direccion, contactos_emergencia, grupo_sanguineo,
+      obraSocial, alergias
+    ].forEach(input => input.disabled = false);
+  }
+  
   const dni = dniPaciente.value.trim();
-  console.log('DNI ingresado:', dni);
   if (dni.length === 0) return;
 
   const res = await fetch('/paciente/buscar', {
@@ -251,5 +277,27 @@ admissionForm.addEventListener('submit', async (e) => {
   } catch (err) {
     Toast.show('Error de red al crear la admisión', 'error');
     btnSubmit.disabled = false;
+  }
+});
+
+// Tipo no identificable
+const checkNoIdentificable = document.getElementById('noIdentificable');
+
+checkNoIdentificable.addEventListener('change', async function() {
+  if (this.checked) {
+    tipoIngreso.value = 'Emergencia';
+    tipoIngreso.disabled = true;
+    dniPaciente.disabled = true;
+    btnSiguiente.disabled = false;
+
+    // Pide al backend un DNI temporal
+    const res = await fetch('/paciente/generar-dni-temporal');
+    const data = await res.json();
+    dniPaciente.value = data.dniTemporal;
+  } else {
+    tipoIngreso.disabled = false;
+    dniPaciente.disabled = false;
+    dniPaciente.value = '';
+    btnSiguiente.disabled = true;
   }
 });

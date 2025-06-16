@@ -8,6 +8,7 @@ hr
 form#admission-form
     section.fase#fase-1.visible
         h3 Datos de ingreso
+        
         .form-group
             label(for="tipoIngreso") Tipo de ingreso:
             select#tipoIngreso(name="tipoIngreso" required)
@@ -29,7 +30,12 @@ form#admission-form
             label Turno encontrado:
             p#turnoDetalles
 
-        button#siguienteFase1(type="button" disabled) Siguiente
+        div(style="display: flex; justify-content: space-between;")
+            button#siguienteFase1(type="button" disabled) Siguiente
+            .form-group(style="margin-top: 1rem; margin-bottom: 0;")
+                label#labelnoIdentificable
+                    input#noIdentificable(type="checkbox")
+                    |  Paciente no identificable
     
     section.fase#fase-2(style="display: none;")
         h3 Registro del paciente
