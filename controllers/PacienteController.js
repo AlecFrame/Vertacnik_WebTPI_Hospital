@@ -1,4 +1,5 @@
 const { Paciente, Usuario, RolUsuario } = require('../models');
+const bcrypt = require('bcrypt');
 
 // Buscar paciente por DNI
 exports.buscarPacientePorDni = async (req, res) => {
@@ -102,6 +103,8 @@ exports.guardar = async (req, res) => {
         }
         } else {
         // Crear nuevo paciente y su usuario asociado
+        const contraseñaTemporal = bcrypt.hashSync(dni, 10); // Generar contraseña temporal
+
         const usuario = await Usuario.create({ 
             dni, 
             nombre, 
@@ -109,7 +112,7 @@ exports.guardar = async (req, res) => {
             fecha_nacimiento,
             email: `${dni}@sinmail.com`,
             telefono,
-            contraseña: dni,
+            contraseña: contraseñaTemporal, // Contraseña temporal
             activo: true
         });
             await RolUsuario.create({

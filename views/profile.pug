@@ -19,7 +19,8 @@ block content
                         button.menu-item Ofertas
                         button.menu-item Postulaciones
                     if (roles.includes('Recepcionista'))
-                        button.menu-item Admisión
+                        button.menu-item Admitir paciente
+                        button.menu-item Mis admisiones
         main.content-area
             .section-panel.active(data-section="inicio") 
                 h2= "¡Bienvenido "+usuario.nombre+" "+usuario.apellido+"!"
@@ -48,3 +49,5 @@ block content
             if(roles.includes('Recepcionista'))
                 .section-panel(data-section="admision")
                     include items/admision.pug
+                .section-panel(data-section="admisiones")
+                    include items/admisiones.pug

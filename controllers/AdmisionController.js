@@ -69,12 +69,26 @@ exports.crearAdmision = async (req, res) => {
 
 // Listar admisiones hechas por el recepcionista
 exports.listarAdmisionesPorUsuario = async (req, res) => {
-    const { usuarioId } = req.session;
+    const usuarioId = req.session.userId;
 
     try {
         const admisiones = await Admision.findAll({
             where: { usuario_id: usuarioId },
-            include: ['paciente', 'unidad', 'cama']
+            include: [
+                {
+                    model: Paciente,
+                    as: 'paciente',
+                    include: [
+                        {
+                            model: Usuario,
+                            as: 'usuario',
+                            attributes: ['dni', 'nombre', 'apellido']
+                        }
+                    ]
+                },
+                { model: Unidad, as: 'unidad' },
+                { model: Cama, as: 'cama' }
+            ]
         });
 
         res.json(admisiones);
