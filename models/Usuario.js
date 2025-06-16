@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'usuario_id',
                 otherKey: 'rol_id',
             });
+            this.hasMany(models.Admision, {
+                foreignKey: 'usuario_id',
+                as: 'admisiones'
+            });
+            this.hasMany(models.Turno, {
+                foreignKey: 'usuario_id',
+                as: 'turnos'
+            });
         }
     };
 

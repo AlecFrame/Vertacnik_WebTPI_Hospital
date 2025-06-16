@@ -1,0 +1,118 @@
+link(rel="stylesheet", href="/styles/toast.css")
+link(rel="stylesheet", href="/styles/admision.css")
+script(src="/js/toast.js", defer)
+script(src="/js/admision.js", defer)
+
+h2 Admision de Pacientes
+hr 
+form#admission-form
+    section.fase#fase-1.visible
+        h3 Datos de ingreso
+        .form-group
+            label(for="tipoIngreso") Tipo de ingreso:
+            select#tipoIngreso(name="tipoIngreso" required)
+                option(value="") Seleccione una opción
+                option(value="Cita") Cita
+                option(value="Emergencia") Emergencia
+                option(value="Derivado") Derivado
+
+        .form-group
+            label(for="dniPaciente") DNI del paciente:
+            input#dniPaciente(type="text" name="dni" required)
+
+        .form-group#campoDerivacion(style="display: none;")
+            label(for="derivacionInfo") Información de derivación:
+            textarea#derivacionInfo(name="derivacion", rows="3")
+            input(type="hidden" name="turnoId" id="turnoId")
+
+        .form-group#turnoInfo(style="display: none;")
+            label Turno encontrado:
+            p#turnoDetalles
+
+        button#siguienteFase1(type="button" disabled) Siguiente
+    
+    section.fase#fase-2(style="display: none;")
+        h3 Registro del paciente
+
+        // Mostrar datos encontrados o permitir ingresarlos
+        .form-group
+            label(for="nombrePaciente") Nombre:
+            input#nombrePaciente(type="text" name="nombre" required)
+
+        .form-group
+            label(for="apellidoPaciente") Apellido:
+            input#apellidoPaciente(type="text" name="apellido" required)
+
+        .form-group
+            label(for="fechaNacimiento") Fecha de nacimiento:
+            input#fechaNacimiento(type="date" name="fecha_nacimiento" required)
+
+        .form-group
+            label(for="genero") Género:
+            select#genero(name="genero" required)
+                option(value="") Seleccione una opción
+                option(value="M") Masculino
+                option(value="F") Femenino
+
+        .form-group
+            label(for="telefono") Teléfono:
+            input#telefono(type="text" name="telefono")
+
+        .form-group
+            label(for="direccion") Dirección:
+            input#direccion(type="text" name="direccion")
+
+        .form-group
+            label(for="contactos_emergencia") Contactos de emergencia:
+            textarea#contactos_emergencia(name="contactos_emergencia" required rows="3")
+        
+        .form-group
+            label(for="grupo_sanguineo") Grupo Sanguineo:
+            select#grupo_sanguineo(name="grupo_sanguineo" required)
+                option(value="") Seleccione una opción
+                option(value="A+") A+
+                option(value="A-") A-
+                option(value="B+") B+
+                option(value="B-") B-
+                option(value="AB+") AB+
+                option(value="AB-") AB-
+                option(value="O+") O+
+                option(value="O-") O-
+
+        .form-group
+            label(for="obra_social") Obra Social:
+            input#obra_social(type="text" name="obra_social")
+
+        .form-group
+            label(for="alergias") Alergias:
+            textarea#alergias(name="alergias")
+
+        .form-group
+            label(for="motivo") Motivo de admisión:
+            textarea#motivo(name="motivo" required rows="3")
+
+        // Campo oculto si el paciente ya existía
+        input#pacienteId(type="hidden" name="paciente_id")
+
+        div(style="display: flex; justify-content: space-between;")
+            button#anteriorFase2(type="button") Anterior
+            button#siguienteFase2(type="button") Siguiente
+    
+    section.fase#fase-3(style="display: none;")
+        h3 Internación
+
+        .form-group
+            label(for="unidadId") Unidad:
+            select#unidadId(name="unidadId" required)
+                option(value="") Seleccione una unidad
+            // Aquí se cargarán dinámicamente las unidades disponibles
+
+        .form-group
+            label(for="camaId") Cama disponible:
+            select#camaId(name="camaId" required disabled)
+                option(value="") Seleccione una cama
+            // Se cargan dinámicamente según la unidad seleccionada
+
+        div(style="display: flex; justify-content: space-between;")
+            button#anteriorFase3(type="button") Anterior
+            button#btnSubmitAdmision(type="submit") Confirmar admisión

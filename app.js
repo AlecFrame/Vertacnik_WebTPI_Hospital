@@ -14,6 +14,9 @@ const adminPostulaciones = require('./routes/adminPostulaciones');
 const adminUsuarios = require('./routes/adminUsuarios');
 const publicPostulaciones = require('./routes/publicPostulaciones');
 const adminEstructura = require('./routes/adminEstructura');
+const admisionRoutes = require('./routes/admision');
+const pacienteRoutes = require('./routes/paciente');
+const unidadRoutes = require('./routes/unidad');
 const { Usuario, Rol, RolUsuario } = require('./models');
 
 // Configuracion del motor de plantillas - PUG
@@ -95,6 +98,9 @@ app.use('/admin', adminOfertasRoutes);
 app.use('/admin', adminPostulaciones);
 app.use('/admin', adminUsuarios);
 app.use('/admin', adminEstructura);
+app.use('/admision', admisionRoutes);
+app.use('/paciente', pacienteRoutes);
+app.use('/unidad', unidadRoutes);
 app.use('/', publicPostulaciones);
 
 // Error 404

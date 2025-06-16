@@ -18,6 +18,8 @@ block content
                         button.menu-item Estructura Hospitalaria
                         button.menu-item Ofertas
                         button.menu-item Postulaciones
+                    if (roles.includes('Recepcionista'))
+                        button.menu-item Admisión
         main.content-area
             .section-panel.active(data-section="inicio") 
                 h2= "¡Bienvenido "+usuario.nombre+" "+usuario.apellido+"!"
@@ -29,16 +31,20 @@ block content
 
             if(roles.includes('Administrador'))
                 .section-panel(data-section="usuarios")
-                    include includes/usuarios.pug
+                    include items/usuarios.pug
 
                 .section-panel(data-section="pacientes")
-                    include includes/usuarios.pug
+                    include items/usuarios.pug
 
                 .section-panel(data-section="hospital")
-                    include includes/hospital.pug
+                    include items/hospital.pug
 
                 .section-panel(data-section="ofertas")
-                    include includes/ofertas.pug
+                    include items/ofertas.pug
 
                 .section-panel(data-section="postulaciones")
-                    include includes/postulaciones.pug
+                    include items/postulaciones.pug
+            
+            if(roles.includes('Recepcionista'))
+                .section-panel(data-section="admision")
+                    include items/admision.pug
