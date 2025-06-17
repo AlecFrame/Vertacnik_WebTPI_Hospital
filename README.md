@@ -22,7 +22,7 @@ Proyecto de gestión hospitalaria para la autogestión del personal y pacientes.
 6. npm run start
 
 ## EndPoint de inicio para admitir pacientes por parte del recepcionista
-- https://tusitio.railway.app/profile (Mi estructura es un poco mas compleja, profile es el espacio de acciones que puede hacer un usuario en el sistema dependiendo del rol que tenga, tendra mas o menos items en la barra lateral izquierda, entonces no puedes ir directamente a esta ruta porque necesitas autentificarte como recepcionista en el sistema para que te permita hacer una admision)
+- https://vertacnik-webtpi-hospital.onrender.com (Mi estructura es un poco mas compleja, profile es el espacio de acciones que puede hacer un usuario en el sistema dependiendo del rol que tenga, tendra mas o menos items en la barra lateral izquierda, entonces no puedes ir directamente a esta ruta porque necesitas autentificarte como recepcionista en el sistema para que te permita hacer una admision)
 - Para ingresar como recepcionista registre uno al sistema, inicias secion en la pagina principal:
         dni: 46260391, 
         email: walteravertacnik@gmail.com, 
