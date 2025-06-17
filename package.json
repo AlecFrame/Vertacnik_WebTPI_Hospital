@@ -4,7 +4,7 @@
   "description": "Pagina web para la gestion del personal y pasientes de un hospital",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "nodemon app.js"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/AlecFrame/Vertacnik_WebTPI_Hospital.git\u001b[D\u001b[C#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "g": "^2.0.1",

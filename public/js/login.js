@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
+  const btnLoginSubmit = document.getElementById('btnLoginSubmit');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    btnLoginSubmit.disabled = true;
+    btnLoginSubmit.textContent = 'Iniciando sesión...';
 
     const data = Object.fromEntries(new FormData(form).entries());
 
@@ -23,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error(err);
       Toast.show('Fallo de red o servidor', 'error');
+    } finally {
+      btnLoginSubmit.disabled = false;
+      btnLoginSubmit.textContent = 'Iniciar sesión';
     }
   });
 });
