@@ -5,15 +5,18 @@ const botones = document.querySelectorAll('.btn-postular');
 let oferta = null;
 
 botones.forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', async () => {
     const ofertaId = btn.dataset.id;
     form.oferta_id.value = ofertaId;
     form.classList.remove('hidden');
-    oferta = obtenerOfertaPorId(ofertaId);
-    oferta.then(data => {
-      sectionMatriculaMedica.classList.toggle('hidden', data.rol.tipo !== 'Médico');
-    });
-    form.scrollIntoView({ behavior: 'smooth' });
+    oferta = await obtenerOfertaPorId(ofertaId);
+    console.log(oferta);
+    // Solo mostrar la matricula médica si el tipo de rol de la oferta es 'medico'
+    if (oferta && oferta.rol.id === 3) {
+      sectionMatriculaMedica.style.display = 'block';
+    }else {
+      sectionMatriculaMedica.style.display = 'none';
+    }
   });
 });
 

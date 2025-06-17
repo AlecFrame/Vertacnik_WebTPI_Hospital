@@ -1,23 +1,28 @@
-const conn = {
-    "development": {
-        "username": process.env.USERNAME,
-        "password": process.env.PASS,
-        "database": process.env.DATABASE,
-        "host": process.env.HOST,
-        "dialect": "mysql"
-    },
-    "test": {
-        "username": process.env.USERNAME,
-        "password": process.env.PASS,
-        "database": process.env.DATABASE,
-        "host": process.env.HOST,
-        "dialect": "mysql"
-    },
-    "production": {
-        "username": process.env.USERNAME,
-        "password": process.env.PASS,
-        "database": process.env.DATABASE,
-        "host": process.env.HOST,
-        "dialect": "mysql"
-    }
-}
+require('dotenv').config();
+
+module.exports = {
+  development: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: 'mysql'
+  },
+  test: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: 'mysql'
+  },
+  production: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    dialect: 'mysql'
+  }
+};

@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'usuario_id',
                 as: 'medicos'
             });
+            this.hasMany(models.Paciente, {
+                foreignKey: 'usuario_id',
+                as: 'pacientes'
+            });
         }
     };
 
@@ -67,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
         }, {
             sequelize,
             modelName: 'Usuario',
-            tableName: 'Usuarios',
+            tableName: 'usuarios',
             timestamps: false
         }
     );

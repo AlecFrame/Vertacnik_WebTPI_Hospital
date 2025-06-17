@@ -63,6 +63,7 @@ form#admission-form
                 option(value="") Seleccione una opción
                 option(value="M") Masculino
                 option(value="F") Femenino
+                option(value="X") Desconocido
 
         .form-group
             label(for="telefono") Teléfono:
@@ -74,7 +75,7 @@ form#admission-form
 
         .form-group
             label(for="contactos_emergencia") Contactos de emergencia:
-            textarea#contactos_emergencia(name="contactos_emergencia" required rows="3")
+            textarea#contactos_emergencia(name="contactos_emergencia" rows="3")
         
         .form-group
             label(for="grupo_sanguineo") Grupo Sanguineo:
@@ -88,6 +89,7 @@ form#admission-form
                 option(value="AB-") AB-
                 option(value="O+") O+
                 option(value="O-") O-
+                option(value="Desconocido") Desconocido
 
         .form-group
             label(for="obra_social") Obra Social:

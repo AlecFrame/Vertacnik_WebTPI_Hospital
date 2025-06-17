@@ -93,3 +93,8 @@ textarea {
   height: auto;
   cursor: pointer;
 }
+
+.input-error {
+  border: 2px solid #e74c3c;
+  background: #fff6f6;
+}

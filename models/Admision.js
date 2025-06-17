@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
         }, {
             sequelize,
             modelName: 'Admision',
-            tableName: 'Admisiones',
+            tableName: 'admisiones',
             timestamps: false
         }
     );

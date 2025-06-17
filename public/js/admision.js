@@ -140,19 +140,20 @@ const obraSocial = document.getElementById('obra_social');
 const alergias = document.getElementById('alergias');
 
 siguienteFase1.addEventListener('click', async () => {
+  setLoading(siguienteFase1, null, true);
   if (checkNoIdentificable.checked) {
     // Paciente no identificable: rellena y deshabilita campos
     nombrePaciente.value = 'No identificado';
     apellidoPaciente.value = 'No identificado';
     emailPaciente.value = 'Sin email';
-    fechaNacimiento.value = '';
-    genero.value = '';
-    telefono.value = '';
-    direccion.value = '';
-    contactos_emergencia.value = '';
-    grupo_sanguineo.value = '';
-    obraSocial.value = '';
-    alergias.value = '';
+    fechaNacimiento.value = new Date().toISOString().slice(0, 10); // fecha actual
+    genero.value = 'X'; // género no especificado
+    telefono.value = 'desconocido';
+    direccion.value = 'desconocida';
+    contactos_emergencia.value = 'desconocido';
+    grupo_sanguineo.value = 'Desconocido';
+    obraSocial.value = 'desconocido';
+    alergias.value = 'desconocido';
 
     // Deshabilita los campos excepto motivo
     [
@@ -162,6 +163,7 @@ siguienteFase1.addEventListener('click', async () => {
     ].forEach(input => input.disabled = true);
 
     cambiarFase(fase1, fase2);
+    setLoading(siguienteFase1, null, false);
     return;
   }else {
     [
@@ -212,41 +214,52 @@ siguienteFase1.addEventListener('click', async () => {
   }
 
   cambiarFase(fase1, fase2);
+  setLoading(siguienteFase1, null, false);
 });
 
 siguienteFase2.addEventListener('click', async () => {
-  const datosPaciente = {
-    id: pacienteIdInput.value || null,
-    nombre: nombrePaciente.value,
-    apellido: apellidoPaciente.value,
-    email: emailPaciente.value,
-    fecha_nacimiento: fechaNacimiento.value,
-    genero: genero.value,
-    telefono: telefono.value,
-    direccion: direccion.value,
-    contactos_emergencia: contactos_emergencia.value,
-    grupo_sanguineo: grupo_sanguineo.value,
-    obra_social: obraSocial.value,
-    alergias: alergias.value,
-    dni: dniPaciente.value
-  };
+  if (!validarFase2()) return; // Validar antes de continuar
+  setLoading(siguienteFase2, anteriorFase2, true);
+  try {
+    const datosPaciente = {
+      id: pacienteIdInput.value || null,
+      nombre: nombrePaciente.value,
+      apellido: apellidoPaciente.value,
+      email: emailPaciente.value,
+      fecha_nacimiento: fechaNacimiento.value,
+      genero: genero.value,
+      telefono: telefono.value,
+      direccion: direccion.value,
+      contactos_emergencia: contactos_emergencia.value,
+      grupo_sanguineo: grupo_sanguineo.value,
+      obra_social: obraSocial.value,
+      alergias: alergias.value,
+      dni: dniPaciente.value
+    };
 
-  const res = await fetch('/paciente/guardar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(datosPaciente)
-  });
+    const res = await fetch('/paciente/guardar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datosPaciente)
+    });
 
-  const data = await res.json();
+    const data = await res.json();
+    console.log('Respuesta del servidor:', data);
 
-  if (data.paciente) {
-    pacienteIdInput.value = data.paciente.id; // asegurarse de tenerlo para admisión
-    await cargarUnidades();
-    cambiarFase(fase2, fase3);
-  } else {
-    // Mostrar error con toast o alert
-    Toast.show('Error al guardar paciente.', 'error');
-    console.error('Error al guardar paciente');
+    if (data.paciente) {
+      pacienteIdInput.value = data.paciente.id; // asegurarse de tenerlo para admisión
+      await cargarUnidades();
+      cambiarFase(fase2, fase3);
+    } else {
+      // Mostrar error con toast o alert
+      Toast.show('Error al guardar paciente.', 'error');
+      console.error('Error al guardar paciente');
+    }
+  } catch (error) {
+    console.error('Ocurrio un error:', error);
+    Toast.show('Ocurrio un error.', 'error');
+  } finally {
+    setLoading(siguienteFase2, anteriorFase2, false);
   }
 });
 
@@ -256,7 +269,7 @@ const btnSubmit = document.getElementById('btnSubmitAdmision');
 
 admissionForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  btnSubmit.disabled = true;
+  setLoading(btnSubmit, anteriorFase3, true);
 
   const datos = {
     pacienteId: pacienteIdInput.value,
@@ -279,11 +292,11 @@ admissionForm.addEventListener('submit', async (e) => {
       setTimeout(() => window.location.reload(), 1500);
     } else {
       Toast.show(data.error || 'Error al crear la admisión', 'error');
-      btnSubmit.disabled = false;
     }
   } catch (err) {
     Toast.show('Error de red al crear la admisión', 'error');
-    btnSubmit.disabled = false;
+  } finally {
+    setLoading(btnSubmit, anteriorFase3, false);
   }
 });
 
@@ -308,3 +321,48 @@ checkNoIdentificable.addEventListener('change', async function() {
     btnSiguiente.disabled = true;
   }
 });
+
+// Utilidad para mostrar "Cargando..." y desactivar el botón
+function setLoading(btn, btnAnterior, loading = true, texto = 'Siguiente') {
+  if (loading) {
+    btn.disabled = true;
+    if (btnAnterior) btnAnterior.disabled = true;
+    btn.dataset.originalText = btn.textContent;
+    btn.textContent = 'Cargando...';
+  } else {
+    btn.disabled = false;
+    if (btnAnterior) btnAnterior.disabled = false;
+    btn.textContent = btn.dataset.originalText || texto;
+  }
+}
+
+// validar fase 2, antes de pasar a la fase 3
+function validarFase2() {
+  if (checkNoIdentificable.checked) return true; // Si es no identificable, no hay validación
+  let valido = true;
+  let primerFaltante = null;
+  // Lista de campos requeridos en Fase 2
+  const requeridos = [
+    nombrePaciente,
+    apellidoPaciente,
+    emailPaciente,
+    fechaNacimiento,
+    genero,
+    grupo_sanguineo,
+    motivo
+  ];
+  requeridos.forEach(input => {
+    if (!input.value || input.value.trim() === '') {
+      valido = false;
+      input.classList.add('input-error');
+      if (!primerFaltante) primerFaltante = input;
+    } else {
+      input.classList.remove('input-error');
+    }
+  });
+  if (!valido && primerFaltante) {
+    primerFaltante.focus();
+    Toast.show('Por favor complete todos los campos obligatorios.', 'error');
+  }
+  return valido;
+}

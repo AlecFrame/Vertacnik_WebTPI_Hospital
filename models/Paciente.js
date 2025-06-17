@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             },
             genero: {
-                type: DataTypes.ENUM('M', 'F'),
+                type: DataTypes.ENUM('M', 'F', 'X'),
                 allowNull: false
             },
             fecha_nacimiento: {
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: true
             },
             grupo_sanguineo: {
-                type: DataTypes.ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
+                type: DataTypes.ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Desconocido'),
                 allowNull: true
             },
             alergias: {
