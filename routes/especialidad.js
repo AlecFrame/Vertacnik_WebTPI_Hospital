@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const EspecialidadController = require('../controllers/especialidadController');
+const EspecialidadController = require('../controllers/EspecialidadController');
 
 // Rutas para manejar las especialidades
 router.get('/listar', EspecialidadController.listarEspecialidades);
