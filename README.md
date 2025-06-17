@@ -12,6 +12,7 @@ Proyecto de gestión hospitalaria para la autogestión del personal y pacientes.
 - Pug (motor de vistas)
 - CSS
 - Bcrypt
+- Dotenv
 
 ## Instalación y proceso para ejecutarlo al final
 1. Clona el repositorio.
@@ -19,7 +20,7 @@ Proyecto de gestión hospitalaria para la autogestión del personal y pacientes.
 3. npm install
 4. Configura la base de datos en `.env` o en `config/config.json`. (por defecto si descargaste el proyecto ya estará configurado)
 5. Inicia el servidor: (Ya deberia estar inicializado en el railway)
-6. npm run start
+6. npm start
 
 ## EndPoint de inicio para admitir pacientes por parte del recepcionista
 - https://vertacnik-webtpi-hospital.onrender.com (Mi estructura es un poco mas compleja, profile es el espacio de acciones que puede hacer un usuario en el sistema dependiendo del rol que tenga, tendra mas o menos items en la barra lateral izquierda, entonces no puedes ir directamente a esta ruta porque necesitas autentificarte como recepcionista en el sistema para que te permita hacer una admision)
