@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'usuario_id',
                 as: 'admisiones'
             });
-            this.hasMany(models.Turno, {
+            this.hasMany(models.Medico, {
                 foreignKey: 'usuario_id',
-                as: 'turnos'
+                as: 'medicos'
             });
         }
     };

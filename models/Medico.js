@@ -2,20 +2,24 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Turno extends Model {
+    class Medico extends Model {
         static associate(models) {
-            this.belongsTo(models.Medico, {
-                foreignKey: 'medico_id',
-                as: 'medico'
+            this.belongsTo(models.Usuario, {
+                foreignKey: 'usuario_id',
+                as: 'usuario'
             });
-            this.belongsTo(models.Paciente, {
-                foreignKey: 'paciente_id',
-                as: 'paciente'
+            this.belongsTo(models.Especialidad, {
+                foreignKey: 'especialidad_id',
+                as: 'especialidad'
+            });
+            this.hasMany(models.Turno, {
+                foreignKey: 'medico_id',
+                as: 'turnos'
             });
         }
     }
 
-    Turno.init(
+    Medico.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -23,33 +27,25 @@ module.exports = (sequelize, DataTypes) => {
                 autoIncrement: true,
                 unique: true
             },
-            medico_id: {
+            usuario_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            paciente_id: {
+            especialidad_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false
             },
-            fechaHora: {
-                type: DataTypes.DATE,
-                allowNull: false
-            },
-            motivo: {
+            matricula: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
-            estado: {
-                type: DataTypes.ENUM('Pendiente', 'Confirmado', 'Cancelado'),
-                defaultValue: 'Pendiente'
             }
         }, {
             sequelize,
-            modelName: 'Turno',
-            tableName: 'turnos',
+            modelName: 'Medico',
+            tableName: 'medicos',
             timestamps: false
         }
     );
-    
-    return Turno;
+
+    return Medico;
 }

@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const tabla = document.getElementById('tabla');
 
     const cargarAdmisiones = async () => {
         try {
             const res = await fetch('/admision/mis-admisiones');
             const admisiones = await res.json();
 
-            const tbody = tabla.querySelector('tbody');
+            const tbody = document.getElementById('admisionesTableBody');
             tbody.innerHTML = '';
 
             admisiones.forEach(a => {

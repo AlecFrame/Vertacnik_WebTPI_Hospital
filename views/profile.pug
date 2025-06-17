@@ -19,8 +19,11 @@ block content
                         button.menu-item Ofertas
                         button.menu-item Postulaciones
                     if (roles.includes('Recepcionista'))
+                        button.menu-item Pacientes
+                        button.menu-item Médicos
                         button.menu-item Admitir paciente
                         button.menu-item Mis admisiones
+                        button.menu-item Turnos
         main.content-area
             .section-panel.active(data-section="inicio") 
                 h2= "¡Bienvenido "+usuario.nombre+" "+usuario.apellido+"!"
@@ -33,21 +36,25 @@ block content
             if(roles.includes('Administrador'))
                 .section-panel(data-section="usuarios")
                     include items/usuarios.pug
-
                 .section-panel(data-section="pacientes")
-                    include items/usuarios.pug
-
+                    include items/pacientes.pug
+                .section-panel(data-section="medicos")
+                    include items/medicos.pug
                 .section-panel(data-section="hospital")
                     include items/hospital.pug
-
                 .section-panel(data-section="ofertas")
                     include items/ofertas.pug
-
                 .section-panel(data-section="postulaciones")
                     include items/postulaciones.pug
             
             if(roles.includes('Recepcionista'))
+                .section-panel(data-section="pacientes")
+                    include items/pacientes.pug
+                .section-panel(data-section="medicos")
+                    include items/medicos.pug
                 .section-panel(data-section="admision")
                     include items/admision.pug
                 .section-panel(data-section="admisiones")
                     include items/admisiones.pug
+                .section-panel(data-section="turnos")
+                    include items/turnos.pug

@@ -27,44 +27,43 @@ exports.buscarPacientePorDni = async (req, res) => {
     }
 };
 
-// Crear paciente y usuario (si no existen)
-exports.crearPacienteConUsuario = async (req, res) => {
-    const { dni, nombre, apellido, fecha_nacimiento, email, genero, telefono, direccion } = req.body;
+exports.crear = async (req, res) => {
+    const { 
+        dni, nombre, apellido, email, fecha_nacimiento, genero, telefono, direccion,
+        contactos_emergencia, grupo_sanguineo, obra_social, alergias 
+    } = req.body;
 
     try {
-        let usuario = await Usuario.findOne({ where: { dni } });
-
-        if (!usuario) {
-            usuario = await Usuario.create({
-                dni,
-                nombre,
-                apellido,
-                fecha_nacimiento,
-                email,
-                telefono,
-                contraseña: 'temporal', // se podría generar una temporal o dejar en blanco
-                activo: true
-            });
+        // Verifica si ya existe un usuario con ese DNI
+        const usuarioExistente = await Usuario.findOne({ where: { dni } });
+        if (usuarioExistente) {
+            return res.status(400).json({ error: 'Ya existe un paciente con ese DNI.' });
         }
 
-        const pacienteExistente = await Paciente.findOne({ where: { usuario_id: usuario.id } });
+        const contraseñaTemporal = require('bcrypt').hashSync(dni, 10);
 
-        if (pacienteExistente) {
-            return res.status(400).json({ error: 'El paciente ya existe' });
-        }
-
-        const paciente = await Paciente.create({
-            usuario_id: usuario.id,
-            genero,
-            fecha_nacimiento,
+        const usuario = await Usuario.create({ 
+            dni, nombre, apellido, fecha_nacimiento,
+            email: email,
             telefono,
-            direccion
+            contraseña: contraseñaTemporal,
+            activo: true
         });
 
-        res.json({ mensaje: 'Paciente creado correctamente', paciente });
+        await RolUsuario.create({
+            usuario_id: usuario.id,
+            rol_id: 2 // Paciente
+        });
+
+        const paciente = await Paciente.create({ 
+            usuario_id: usuario.id, genero, fecha_nacimiento, telefono, direccion,
+            contactos_emergencia, grupo_sanguineo, alergias, obra_social
+        });
+
+        res.json({ paciente, usuario });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Error creando paciente' });
+        res.status(500).json({ error: 'Error al crear el paciente' });
     }
 };
 
@@ -74,7 +73,8 @@ exports.guardar = async (req, res) => {
         id, 
         dni, 
         nombre, 
-        apellido, 
+        apellido,
+        email,
         fecha_nacimiento, 
         genero, telefono, 
         direccion, 
@@ -110,7 +110,7 @@ exports.guardar = async (req, res) => {
             nombre, 
             apellido,
             fecha_nacimiento,
-            email: `${dni}@sinmail.com`,
+            email: email,
             telefono,
             contraseña: contraseñaTemporal, // Contraseña temporal
             activo: true
@@ -160,3 +160,19 @@ exports.generarDniTemporal = async (req, res) => {
         res.status(500).json({ error: 'Error generando DNI temporal' });
     }
 };
+
+exports.listarPacientes = async (req, res) => {
+    try {
+        const pacientes = await Paciente.findAll({
+            include: [{
+                model: Usuario,
+                as: 'usuario'
+            }]
+        });
+
+        res.json(pacientes);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al listar pacientes' });
+    }
+}

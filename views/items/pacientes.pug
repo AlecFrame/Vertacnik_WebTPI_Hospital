@@ -1,0 +1,91 @@
+script(src="/js/toast.js", defer)
+script(src="/js/pacientes.js", defer)
+link(rel="stylesheet", href="/styles/toast.css")
+
+h2 Registro de Pacientes
+p Aqui podrás registrar nuevos pacientes o ver la lista de pacientes existentes.
+hr
+div(style="display: flex; margin-bottom: 1rem; gap: 1rem; justify-content: center; padding: 0 1rem;")
+    button.btncommon#btnRegistrarPaciente(type="button") Registrar Paciente
+    button.btncommon#btnListaPacientes(type="button") Ver Pacientes
+section#sectionListaPacientes
+    table#tabla
+        thead
+            tr
+                th DNI
+                th Nombre
+                th Apellido
+                th Email
+                th Fecha de Nacimiento
+                th Género
+                th Teléfono
+                th Dirección
+                th Grupo Sanguíneo
+                th Obra Social
+        tbody#pacientesTableBody
+            // Aquí se llenarán los pacientes mediante JavaScript
+section.gray-window#sectionFormPaciente
+    h3 Registro de Paciente
+    form#paciente-form
+        // Mostrar datos encontrados o permitir ingresarlos
+        .form-group
+            label(for="dniPaciente") DNI:
+            input#dniPacienteP(type="text" name="dni" required)
+        
+        .form-group
+            label(for="nombrePaciente") Nombre:
+            input#nombrePacienteP(type="text" name="nombre" required)
+
+        .form-group
+            label(for="apellidoPaciente") Apellido:
+            input#apellidoPacienteP(type="text" name="apellido" required)
+
+        .form-group 
+            label(for="emailPaciente") Email:
+            input#emailPacienteP(type="email" name="email" required)
+
+        .form-group
+            label(for="fechaNacimiento") Fecha de nacimiento:
+            input#fechaNacimientoP(type="date" name="fecha_nacimiento" required)
+
+        .form-group
+            label(for="genero") Género:
+            select#generoP(name="genero" required)
+                option(value="") Seleccione una opción
+                option(value="M") Masculino
+                option(value="F") Femenino
+
+        .form-group
+            label(for="telefono") Teléfono:
+            input#telefonoP(type="text" name="telefono")
+
+        .form-group
+            label(for="direccion") Dirección:
+            input#direccionP(type="text" name="direccion")
+
+        .form-group
+            label(for="contactos_emergencia") Contactos de emergencia:
+            textarea#contactos_emergenciaP(name="contactos_emergencia" required rows="3")
+        
+        .form-group
+            label(for="grupo_sanguineo") Grupo Sanguineo:
+            select#grupo_sanguineoP(name="grupo_sanguineo" required)
+                option(value="") Seleccione una opción
+                option(value="A+") A+
+                option(value="A-") A-
+                option(value="B+") B+
+                option(value="B-") B-
+                option(value="AB+") AB+
+                option(value="AB-") AB-
+                option(value="O+") O+
+                option(value="O-") O-
+
+        .form-group
+            label(for="obra_social") Obra Social:
+            input#obra_socialP(type="text" name="obra_social")
+
+        .form-group
+            label(for="alergias") Alergias:
+            textarea#alergiasP(name="alergias")
+
+        button.btncommon#btnPacienteSubmit(type="submit") Registrar Paciente

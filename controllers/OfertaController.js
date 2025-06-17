@@ -48,10 +48,15 @@ const darDeBaja = async (req, res) => {
 };
 
 const crear = async (req, res) => {
-  const { rol_id, descripcion, fecha_cierre } = req.body;
+  const { rol_id, descripcion, fecha_cierre, especialidad } = req.body;
 
   if (!rol_id || !descripcion || !fecha_cierre) {
     return res.status(400).json({ error: 'Campos incompletos' });
+  }
+
+  // Si es médico, especialidad es obligatoria
+  if (rol_id == 3 && !especialidad) {
+    return res.status(400).json({ error: 'Debe seleccionar una especialidad para médicos.' });
   }
 
   await Oferta.create({
@@ -59,7 +64,8 @@ const crear = async (req, res) => {
     descripcion,
     fecha_publicacion: new Date(),
     fecha_cierre,
-    activo: true
+    activo: true,
+    especialidad_id: rol_id == 3 ? especialidad : null
   });
 
   res.status(201).json({ mensaje: 'Oferta creada correctamente' });

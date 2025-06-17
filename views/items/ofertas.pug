@@ -38,6 +38,12 @@ div#modalCrearOferta.modal.hidden
                     input(type="radio" name="rol_id" value="4")
                 label(for="rol_id") Recepcionista
                     input(type="radio" name="rol_id" value="5")
+
+            .especialidad-selection
+                label(for="especialidad") Especialidad:
+                select#especialidadOferta(name="especialidad")
+                    option(value="") Seleccione una especialidad
+                // Aquí se cargarán dinámicamente las especialidades
         
             label(for="descripcion") Descripción:
             textarea(name="descripcion" required)

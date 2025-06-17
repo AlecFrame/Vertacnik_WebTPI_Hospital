@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const tabla = document.getElementById('tabla');
   const filtro = document.getElementById('filtroRol');
 
   const cargarUsuarios = async () => {
@@ -7,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('/admin/usuarios');
       const usuarios = await res.json();
 
-      const tbody = tabla.querySelector('tbody');
+      const tbody = document.getElementById('usuariosTableBody');
       tbody.innerHTML = '';
 
       usuarios
@@ -18,13 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>${u.id}</td>
             <td>${u.dni}</td>
             <td>${u.nombre}</td>
-            <td>
-              <select class="select-rol" data-id="${u.id}">
-                <option value="1" ${u.rol === 'Médico' ? 'selected' : ''}>Médico</option>
-                <option value="2" ${u.rol === 'Enfermero' ? 'selected' : ''}>Enfermero</option>
-                <option value="3" ${u.rol === 'Recepcionista' ? 'selected' : ''}>Recepcionista</option>
-              </select>
-            </td>
+            <td>${u.rol}</td>
             <td>${u.email}</td>
             <td>${u.telefono || '-'}</td>
             <td>${new Date(u.fecha_registro).toLocaleDateString()}</td>

@@ -1,0 +1,41 @@
+script(src="/js/toast.js", defer)
+script(src="/js/turnos.js", defer)
+link(rel="stylesheet", href="/styles/toast.css")
+
+h2 Registro de Turnos
+p Para ver los turnos de un paciente, primero debes buscarlo en la lista de pacientes.
+hr
+div(style="display: flex; margin-bottom: 1rem; gap: 1rem; justify-content: center; padding: 0 1rem;")
+    button.btncommon#nuevoTurno(type="button") Nuevo Turno
+    button.btncommon#verTurnos(type="button") Ver Turnos
+section#turnos-list
+    table#tabla
+        thead
+            tr
+                th Doctor
+                th Paciente
+                th Fecha y hora
+                th Motivo
+                th Estado
+        tbody#turnosTableBody
+            // Aquí se llenarán los turnos mediante JavaScript
+section.gray-window#nuevo-turno
+    h3 Nuevo Turno
+    form#turno-form
+        .form-group
+            label(for="doctor") Doctor:
+            select#doctor(name="doctor" required)
+                option(value="") Seleccione un doctor
+            // Aquí se cargarán dinámicamente los doctores
+        .form-group
+            label(for="dniPaciente") DNI del paciente:
+            input#dniPacienteTurno(type="text" name="dniPaciente" required)
+            button.btncommon#buscarPaciente(type="button") Buscar
+            span#pacienteInfo
+        .form-group
+            label(for="fechaHora") Fecha y hora:
+            input#fechaHoraTurno(type="datetime-local" name="fecha_hora" required)
+        .form-group
+            label(for="motivo") Motivo:
+            textarea#motivoTurno(name="motivo" required rows="3")
+        button.btncommon#btnTurnoSubmit(type="submit") Agregar Turno

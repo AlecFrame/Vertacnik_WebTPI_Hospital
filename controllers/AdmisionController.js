@@ -82,7 +82,7 @@ exports.listarAdmisionesPorUsuario = async (req, res) => {
                         {
                             model: Usuario,
                             as: 'usuario',
-                            attributes: ['dni', 'nombre', 'apellido']
+                            attributes: ['dni', 'nombre', 'apellido', 'email']
                         }
                     ]
                 },

@@ -51,8 +51,39 @@ const modal = document.getElementById('modalCrearOferta');
 const btnAbrir = document.getElementById('createOfertaBtn');
 const btnCerrar = document.getElementById('cerrarModal');
 const formCrear = document.getElementById('formCrearOferta');
+const especialidadSelection = document.getElementById('especialidad-selection');
+const especialidadId = document.getElementById('especialidadOferta');
+const radiosRol = document.querySelectorAll('input[name="rol_id"]');
 
-btnAbrir.addEventListener('click', () => modal.classList.remove('hidden'));
+// Listener para mostrar/ocultar especialidad
+radiosRol.forEach(radio => {
+    radio.addEventListener('change', () => {
+        if (radio.value === '3') { // 3 = Médico
+            especialidadSelection.style.display = 'block';
+        } else {
+            especialidadSelection.style.display = 'none';
+            especialidadId.value = '';
+        }
+    });
+});
+
+btnAbrir.addEventListener('click', async () => {
+    try {
+        const res = await fetch('/especialidad/listar');
+        const especialidades = await res.json();
+        especialidadId.innerHTML = '<option value="">Seleccione una especialidad</option>';
+        especialidades.forEach(e => {
+            const option = document.createElement('option');
+            option.value = e.id;
+            option.textContent = e.nombre;
+            especialidadId.appendChild(option);
+        });
+    } catch (err) {
+        console.error('Error cargando especialidades:', err);
+        alert('Error al cargar especialidades');
+    }
+    modal.classList.remove('hidden');
+});
 btnCerrar.addEventListener('click', () => modal.classList.add('hidden'));
 
 formCrear.addEventListener('submit', async (e) => {
@@ -60,6 +91,8 @@ formCrear.addEventListener('submit', async (e) => {
 
     const formData = new FormData(formCrear);
     const data = Object.fromEntries(formData.entries());
+
+    console.log('Datos a enviar:', data);
 
     try {
         const res = await fetch('/admin/ofertas', {
@@ -80,3 +113,6 @@ formCrear.addEventListener('submit', async (e) => {
         alert('Error de red al crear oferta');
     }
 });
+
+// Oculta la selección de especialidad por defecto
+especialidadSelection.style.display = 'none';

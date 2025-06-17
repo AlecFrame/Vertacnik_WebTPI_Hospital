@@ -127,6 +127,7 @@ anteriorFase3.addEventListener('click', () => cambiarFase(fase3, fase2));
 const pacienteIdInput = document.getElementById('pacienteId');
 const nombrePaciente = document.getElementById('nombrePaciente');
 const apellidoPaciente = document.getElementById('apellidoPaciente');
+const emailPaciente = document.getElementById('emailPaciente');
 const fechaNacimiento = document.getElementById('fechaNacimiento');
 const genero = document.getElementById('genero');
 const telefono = document.getElementById('telefono');
@@ -141,6 +142,7 @@ siguienteFase1.addEventListener('click', async () => {
     // Paciente no identificable: rellena y deshabilita campos
     nombrePaciente.value = 'No identificado';
     apellidoPaciente.value = 'No identificado';
+    emailPaciente.value = 'Sin email';
     fechaNacimiento.value = '';
     genero.value = '';
     telefono.value = '';
@@ -152,7 +154,7 @@ siguienteFase1.addEventListener('click', async () => {
 
     // Deshabilita los campos excepto motivo
     [
-      nombrePaciente, apellidoPaciente, fechaNacimiento, genero,
+      nombrePaciente, apellidoPaciente, emailPaciente, fechaNacimiento, genero,
       telefono, direccion, contactos_emergencia, grupo_sanguineo,
       obraSocial, alergias
     ].forEach(input => input.disabled = true);
@@ -161,7 +163,7 @@ siguienteFase1.addEventListener('click', async () => {
     return;
   }else {
     [
-      nombrePaciente, apellidoPaciente, fechaNacimiento, genero,
+      nombrePaciente, apellidoPaciente, emailPaciente, fechaNacimiento, genero,
       telefono, direccion, contactos_emergencia, grupo_sanguineo,
       obraSocial, alergias
     ].forEach(input => input.disabled = false);
@@ -182,6 +184,7 @@ siguienteFase1.addEventListener('click', async () => {
       pacienteIdInput.value = data.paciente.id;
       nombrePaciente.value = data.usuario.nombre;
       apellidoPaciente.value = data.usuario.apellido;
+      emailPaciente.value = data.usuario.email || '';
       fechaNacimiento.value = data.paciente.fecha_nacimiento?.slice(0, 10); // para input date
       genero.value = data.paciente.genero;
       telefono.value = data.paciente.telefono;
@@ -195,6 +198,7 @@ siguienteFase1.addEventListener('click', async () => {
       pacienteIdInput.value = '';
       nombrePaciente.value = '';
       apellidoPaciente.value = '';
+      emailPaciente.value = '';
       fechaNacimiento.value = '';
       genero.value = '';
       telefono.value = '';
@@ -213,6 +217,7 @@ siguienteFase2.addEventListener('click', async () => {
     id: pacienteIdInput.value || null,
     nombre: nombrePaciente.value,
     apellido: apellidoPaciente.value,
+    email: emailPaciente.value,
     fecha_nacimiento: fechaNacimiento.value,
     genero: genero.value,
     telefono: telefono.value,
