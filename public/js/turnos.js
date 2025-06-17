@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function cargarDoctores() {
         doctorSelect.innerHTML = '<option value="">Seleccione un doctor</option>';
         try {
-            const res = await fetch('/api/doctores'); // Debes crear este endpoint que devuelva todos los médicos con usuario y especialidad
+            const res = await fetch('/medico/listar'); // Debes crear este endpoint que devuelva todos los médicos con usuario y especialidad
             doctores = await res.json();
             doctores.forEach(medico => {
                 const option = document.createElement('option');
@@ -112,16 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             if (res.ok) {
-                alert('Turno creado');
+                Toast.show('Turno creado exitosamente', 'success');
                 turnoForm.reset();
                 sectionNuevo.style.display = 'none';
                 sectionTurnos.style.display = 'block';
                 cargarTurnos();
             } else {
-                alert(data.error || 'Error al crear turno');
+                Toast.show(data.error || 'Error al crear turno', 'error');
             }
         } catch (err) {
-            alert('Error de red');
+            console.log(err);
+            Toast.show('Error de red', 'error');
         }
     });
 

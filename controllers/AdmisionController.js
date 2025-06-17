@@ -1,4 +1,4 @@
-const { Admision, Usuario, Paciente, Turno, Unidad, Cama } = require('../models');
+const { Admision, Usuario, Paciente, Turno, Unidad, Cama, Medico } = require('../models');
 const { Op } = require('sequelize');
 
 // Buscar turnos cercanos si es cita
@@ -25,7 +25,20 @@ exports.buscarTurnoCercano = async (req, res) => {
                     [Op.between]: [new Date(ahora.getTime() - margen), new Date(ahora.getTime() + margen)]
                 },
                 estado: 'Pendiente'
-            }
+            },
+            include: [
+                {
+                    model: Medico,
+                    as: 'medico',
+                    include: [
+                        {
+                            model: Usuario,
+                            as: 'usuario',
+                            attributes: ['nombre', 'apellido']
+                        }
+                    ]
+                }
+            ]
         });
 
         if (turno) {

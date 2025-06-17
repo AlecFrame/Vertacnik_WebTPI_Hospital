@@ -13,7 +13,7 @@ const mostrar = async (req, res) => {
 
 const postular = async (req, res) => {
   try {
-    const { oferta_id, dni, nombre, apellido, email, telefono, fecha_nacimiento, url_cv } = req.body;
+    const { oferta_id, dni, nombre, apellido, email, telefono, fecha_nacimiento, url_cv, matricula } = req.body;
 
     if (!url_cv || !url_cv.startsWith('http')) {
       return res.status(400).send('Debes ingresar un enlace válido al CV.');
@@ -33,7 +33,13 @@ const postular = async (req, res) => {
       email,
       telefono,
       fecha_nacimiento,
-      url_cv
+      url_cv,
+      matricula
+    });
+
+    const ofertas = await Oferta.findAll({
+      where: { activo: true },
+      include: { model: Rol, as: 'rol' }
     });
 
     res.render('trabaja', { title: 'Trabaja con Nosotros', ofertas, success: true });

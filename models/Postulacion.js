@@ -58,6 +58,10 @@ module.exports = (sequelize, DataTypes) => {
             estado: {
                 type: DataTypes.ENUM('pendiente', 'aceptada', 'rechazada'),
                 defaultValue: 'pendiente'
+            },
+            matricula: {
+                type: DataTypes.STRING,
+                allowNull: true
             }
         }, {
             sequelize,

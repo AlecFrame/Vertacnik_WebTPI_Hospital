@@ -1,4 +1,4 @@
-const { Postulacion, Oferta, Rol, Usuario, RolUsuario } = require('../models');
+const { Postulacion, Oferta, Rol, Usuario, RolUsuario, Medico } = require('../models');
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 
@@ -81,6 +81,15 @@ const aceptar = async (req, res) => {
       usuario_id: usuario.id,
       rol_id: postulacion.oferta.rol.id
     });
+
+    // Si es médico, crea el registro en Medico
+    if (postulacion.oferta.rol.tipo === 'Médico') {
+      await Medico.create({
+        usuario_id: usuario.id,
+        especialidad_id: postulacion.oferta.especialidad_id, // Usa el id de la oferta
+        matricula: postulacion.matricula // Si la matrícula la pides en el form de postulación
+      });
+    }
 
     // Actualizar postulación y oferta
     postulacion.estado = 'aceptada';

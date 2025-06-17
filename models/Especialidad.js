@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'especialidad_id',
                 as: 'medicos'
             });
+            this.hasMany(models.Oferta, {
+                foreignKey: 'especialidad_id',
+                as: 'ofertas'
+            });
         }
     }
 

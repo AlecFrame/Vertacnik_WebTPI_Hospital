@@ -1,4 +1,4 @@
-const Especialidad = require('../models/Especialidad');
+const { Especialidad } = require('../models');
 const { Op } = require('sequelize');
 
 exports.listarEspecialidades = async (req, res) => {

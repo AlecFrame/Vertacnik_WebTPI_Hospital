@@ -52,4 +52,5 @@ table#tablaPostulaciones {
   text-decoration: none;
   padding: 4px 6px;
   border-radius: 4px;
+  display: ruby-text;
 }

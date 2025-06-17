@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: 'oferta_id',
                 as: 'postulaciones'
             });
+            this.belongsTo(models.Especialidad, {
+                foreignKey: 'especialidad_id',
+                as: 'especialidad'
+            });
         }
     };
 

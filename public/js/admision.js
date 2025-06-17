@@ -46,14 +46,16 @@ tipoIngreso.addEventListener('change', async () => {
       const data = await res.json();
 
       if (data.turno) {
+        const medico = data.turno.medico;
+        const nombreMedico = medico && medico.usuario ? `${medico.usuario.nombre} ${medico.usuario.apellido}` : 'Desconocido';
         turnoInfo.style.display = 'block';
-        turnoDetalles.textContent = `Turno con ${data.turno.medico}, hora: ${data.turno.fechaHora}`;
+        turnoDetalles.textContent = `Turno con el Dr. ${nombreMedico}, hora: ${data.turno.fechaHora}`;
         turnoId.value = data.turno.id;
         btnSiguiente.disabled = false;
       } else {
         turnoInfo.style.display = 'block';
-        turnoDetalles.textContent = 'No se encontró un turno válido. Por favor registre uno manualmente.';
-        btnSiguiente.disabled = false;
+        turnoDetalles.textContent = 'No se encontró un turno a +-20 minutos de la hora actual. Por favor registre uno manualmente.';
+        btnSiguiente.disabled = true;
       }
     }
   }

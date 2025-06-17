@@ -1,51 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const tabla = document.getElementById('tablaOfertas');
-    const filtro = document.getElementById('filtroEstado');
+const tabla = document.getElementById('tablaOfertas');
+const filtro = document.getElementById('filtroEstado');
 
-    const cargarOfertas = async () => {
-        try {
-        const estado = filtro?.value || 'todas';
-        const res = await fetch(`/admin/ofertas?estado=${estado}`);
-        const ofertas = await res.json();
+const cargarOfertas = async () => {
+    try {
+    const estado = filtro?.value || 'todas';
+    const res = await fetch(`/admin/ofertas?estado=${estado}`);
+    const ofertas = await res.json();
 
-        const tbody = tabla.querySelector('tbody');
-        tbody.innerHTML = '';
+    const tbody = tabla.querySelector('tbody');
+    tbody.innerHTML = '';
 
-        ofertas.forEach(oferta => {
-            const fila = document.createElement('tr');
-            fila.innerHTML = `
-            <td>${oferta.id}</td>
-            <td>${oferta.rol}</td>
-            <td>${oferta.descripcion}</td>
-            <td>${new Date(oferta.fecha_publicacion).toLocaleDateString()}</td>
-            <td>${new Date(oferta.fecha_cierre).toLocaleDateString()}</td>
-            <td>${oferta.activo ? 'Activa' : 'Inactiva'}</td>
-            <td>
-                ${oferta.activo ?
-                `<button class="btn-deshabilitar" data-id="${oferta.id}">Dar de baja</button>` :
-                `<span class="text-muted">No editable</span>`}
-            </td>
-            `;
-            tbody.appendChild(fila);
+    ofertas.forEach(oferta => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+        <td>${oferta.id}</td>
+        <td>${oferta.rol}</td>
+        <td>${oferta.descripcion}</td>
+        <td>${new Date(oferta.fecha_publicacion).toLocaleDateString()}</td>
+        <td>${new Date(oferta.fecha_cierre).toLocaleDateString()}</td>
+        <td>${oferta.activo ? 'Activa' : 'Inactiva'}</td>
+        <td>
+            ${oferta.activo ?
+            `<button class="btn-deshabilitar" data-id="${oferta.id}">Dar de baja</button>` :
+            `<span class="text-muted">No editable</span>`}
+        </td>
+        `;
+        tbody.appendChild(fila);
+    });
+
+    document.querySelectorAll('.btn-deshabilitar').forEach(btn => {
+        btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        await fetch(`/admin/ofertas/${id}/desactivar`, { method: 'PUT' });
+        cargarOfertas(); // recargar después
         });
+    });
+    } catch (err) {
+        console.error('Error cargando ofertas:', err);
+    }
+};
 
-        document.querySelectorAll('.btn-deshabilitar').forEach(btn => {
-            btn.addEventListener('click', async () => {
-            const id = btn.dataset.id;
-            await fetch(`/admin/ofertas/${id}/desactivar`, { method: 'PUT' });
-            cargarOfertas(); // recargar después
-            });
-        });
-        } catch (err) {
-            console.error('Error cargando ofertas:', err);
-        }
-    };
+// Filtros
+filtro?.addEventListener('change', cargarOfertas);
 
-    // Filtros
-    filtro?.addEventListener('change', cargarOfertas);
-
-    cargarOfertas();
-});
+cargarOfertas();
 
 const modal = document.getElementById('modalCrearOferta');
 const btnAbrir = document.getElementById('createOfertaBtn');
@@ -92,24 +90,25 @@ formCrear.addEventListener('submit', async (e) => {
     const formData = new FormData(formCrear);
     const data = Object.fromEntries(formData.entries());
 
-    console.log('Datos a enviar:', data);
-
     try {
-        const res = await fetch('/admin/ofertas', {
+        const res = await fetch('/admin/ofertas/crear', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
 
+        const result = await res.json(); // <-- agrega esto
+
         if (res.ok) {
             modal.classList.add('hidden');
+            especialidadSelection.style.display = 'none';
             formCrear.reset();
             cargarOfertas(); // vuelve a listar
         } else {
-            alert('Error al crear la oferta');
+            alert(result.error || 'Error al crear la oferta');
         }
     } catch (err) {
-        console.error(err);
+        console.error("Se produjo un error de red: "+err);
         alert('Error de red al crear oferta');
     }
 });

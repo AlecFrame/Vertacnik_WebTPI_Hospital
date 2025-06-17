@@ -1,4 +1,4 @@
-const { Oferta, Rol, Postulacion } = require('../models');
+const { Oferta, Rol, Postulacion, Especialidad } = require('../models');
 const { Op } = require('sequelize');
 
 const darDeBajaOfertasDescontinuadas = async () => {
@@ -59,7 +59,7 @@ const crear = async (req, res) => {
     return res.status(400).json({ error: 'Debe seleccionar una especialidad para médicos.' });
   }
 
-  await Oferta.create({
+  const oferta = await Oferta.create({
     rol_id,
     descripcion,
     fecha_publicacion: new Date(),
@@ -68,7 +68,24 @@ const crear = async (req, res) => {
     especialidad_id: rol_id == 3 ? especialidad : null
   });
 
-  res.status(201).json({ mensaje: 'Oferta creada correctamente' });
+  res.json(oferta);
 };
 
-module.exports = { listar, darDeBaja, crear };
+const obtenerPorId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const oferta = await Oferta.findByPk(id, {
+      include: [
+        { model: Rol, as: 'rol', attributes: ['tipo', 'id'] },
+        { model: Especialidad, as: 'especialidad', attributes: ['id', 'nombre'] }
+      ]
+    });
+    if (!oferta) return res.status(404).json({ error: 'Oferta no encontrada' });
+    res.json(oferta);
+  } catch (err) {
+    console.error('Error al obtener oferta:', err);
+    res.status(500).json({ error: 'Error al obtener oferta' });
+  }
+};
+
+module.exports = { listar, darDeBaja, crear, obtenerPorId };
